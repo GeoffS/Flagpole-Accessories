@@ -1,7 +1,10 @@
 include <../OpenSCAD_Lib/MakeInclude.scad>
 include <../OpenSCAD_Lib/chamferedCylinders.scad>
 
-makeTop = false;
+makeTopRing = false;
+makeBottomSleeve = false;
+
+topPerimiterWidth = 0.42;
 
 // 2 1/2" PVC Schedule 40 pipe from: https://pvcfittingsdirect.com/pvc-pipe-sizes-chart/
 tubeOD = 2.875 * mm; // Nominal
@@ -37,6 +40,26 @@ module baseRing()
     }
 }
 
+bottomSleeveZ = 50;
+
+module bottomSleeve()
+{
+	difference()
+    {
+        // Exterior:
+        cylinder(d=tubeID, h=bottomSleeveZ);
+
+        // Interior:
+        tcy([0,0,-200], d=mastBaseOD, h=400);
+
+        // Top chamfer:
+        translate([0,0,bottomSleeveZ-tubeID/2+2*topPerimiterWidth]) cylinder(d2=100, d1=0, h=50);
+
+        // Bottom chamfer:
+        translate([0,0,-50+mastBaseOD/2+2]) cylinder(d1=100, d2=0, h=50);
+    }
+}
+
 module clip(d=0)
 {
 	tc([-200, -400-d, -200], 400);
@@ -44,9 +67,11 @@ module clip(d=0)
 
 if(developmentRender)
 {
-	display() baseRing();
+	display() translate([-80,0,0]) baseRing();
+    display() bottomSleeve();
 }
 else
 {
-	if(makeTop) mirror([0,0,1]) baseRing();
+	if(makeTopRing) mirror([0,0,1]) baseRing();
+    if(makeBottomSleeve) bottomSleeve();
 }
