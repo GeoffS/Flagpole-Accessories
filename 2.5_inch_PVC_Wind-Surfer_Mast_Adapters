@@ -1,24 +1,49 @@
 include <../OpenSCAD_Lib/MakeInclude.scad>
 include <../OpenSCAD_Lib/chamferedCylinders.scad>
 
+// 2 1/2" PVC Schedule 40 pipe from: https://pvcfittingsdirect.com/pvc-pipe-sizes-chart/
+tubeOD = 2.875 * mm; // Nominal
+tubeID = 2.445 * mm; // Nominal
+
+mastBaseOD = 54; // Approximate measurement of blue flagpole mast 9/10/2026
+
 firstLayerHeight = 0.2;
 layerHeight = 0.2;
 
-module itemModule()
+topZ = 10;
+sleaveZ = 15;
+
+module topSleave()
 {
-	
+	difference()
+    {
+        // Exterior:
+        union()
+        {
+            // Above tube:
+            simpleChamferedCylinder(d=tubeOD, h=topZ, cz=3);
+            // Sleave:
+            translate([0,0,-sleaveZ]) simpleChamferedCylinder(d=tubeID, h=sleaveZ, cz=2, flip=true);
+        }
+
+        // Interior:
+        tcy([0,0,-200], d=mastBaseOD, h=400);
+
+        // Entry chamfer:
+        translate([0,0,topZ-mastBaseOD/2-3]) cylinder(d2=100, d1=0, h=50);
+    }
 }
 
 module clip(d=0)
 {
-	//tc([-200, -400-d, -10], 400);
+	tc([-200, -400-d, -200], 400);
 }
 
 if(developmentRender)
 {
-	display() itemModule();
+	display() topSleave();
 }
 else
 {
-	itemModule();
+	topSleave();
 }
