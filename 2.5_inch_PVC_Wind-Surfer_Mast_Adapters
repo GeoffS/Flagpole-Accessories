@@ -13,8 +13,8 @@ mastRingOD = 51; // Approximate measurement of blue flagpole mast 9/12/2026
 firstLayerHeight = 0.2;
 layerHeight = 0.2;
 
-topZ = 10;
-sleaveZ = 30;
+baseRingAboveTubeZ = 15;
+baseRingInsideTubeZ = 30;
 
 module baseRing()
 {
@@ -24,16 +24,16 @@ module baseRing()
         union()
         {
             // Above tube:
-            simpleChamferedCylinder(d=tubeOD, h=topZ, cz=3);
+            simpleChamferedCylinder(d=tubeOD, h=baseRingAboveTubeZ, cz=3);
             // Sleave:
-            translate([0,0,-sleaveZ]) simpleChamferedCylinder(d=tubeID, h=sleaveZ, cz=3, flip=true);
+            translate([0,0,-baseRingInsideTubeZ]) simpleChamferedCylinder(d=tubeID, h=baseRingInsideTubeZ, cz=3, flip=true);
         }
 
         // Interior:
         tcy([0,0,-200], d=mastRingOD, h=400);
 
         // Entry chamfer:
-        // translate([0,0,topZ-mastRingOD/2-3]) cylinder(d2=100, d1=0, h=50);
+        // translate([0,0,baseRingAboveTubeZ-mastRingOD/2-3]) cylinder(d2=100, d1=0, h=50);
     }
 }
 
