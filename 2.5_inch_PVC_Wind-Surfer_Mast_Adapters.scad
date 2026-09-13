@@ -6,9 +6,9 @@ makeBottomSleeve = false;
 
 topPerimiterWidth = 0.42;
 
-// 2 1/2" PVC Schedule 40 pipe from: https://pvcfittingsdirect.com/pvc-pipe-sizes-chart/
-tubeOD = 2.875 * mm; // Nominal
-tubeID = 2.445 * mm; // Nominal
+// 3" PVC Schedule 40 pipe from: https://pvcfittingsdirect.com/pvc-pipe-sizes-chart/
+tubeOD = 90; // Measured
+tubeID = 77; // Measured
 
 mastBaseOD = 54; // Approximate measurement of blue flagpole mast 9/10/2026
 mastRingOD = 51; // Approximate measurement of blue flagpole mast 9/12/2026
@@ -78,11 +78,11 @@ module clip(d=0)
 
 if(developmentRender)
 {
-	//display() translate([-80,0,0]) baseRing();
+	//display() translate([-100,0,0]) baseRing();
     //display() bottomSleeve();
 
     display() baseRing();
-    display() translate([-80,0,0]) bottomSleeve();
+    display() translate([-100,0,0]) bottomSleeve();
 }
 else
 {
