@@ -16,8 +16,14 @@ mastRingOD = 51; // Approximate measurement of blue flagpole mast 9/12/2026
 firstLayerHeight = 0.2;
 layerHeight = 0.2;
 
-baseRingAboveTubeZ = 15;
-baseRingInsideTubeZ = 30;
+baseRingAboveTubeZ = 20;
+baseRingInsideTubeZ = 40;
+baseRingCZ = 3;
+
+ // 10-24'ish:
+screwDia = 4.9;
+nutDia = 10.6;
+nutRecess = 3.6;
 
 module baseRing()
 {
@@ -27,7 +33,7 @@ module baseRing()
         union()
         {
             // Above tube:
-            simpleChamferedCylinder(d=tubeOD, h=baseRingAboveTubeZ, cz=3);
+            simpleChamferedCylinder(d=tubeOD, h=baseRingAboveTubeZ, cz=baseRingCZ);
             // Sleave:
             translate([0,0,-baseRingInsideTubeZ]) simpleChamferedCylinder(d=tubeID, h=baseRingInsideTubeZ, cz=3, flip=true);
         }
@@ -37,6 +43,14 @@ module baseRing()
 
         // Entry chamfer:
         // translate([0,0,baseRingAboveTubeZ-mastRingOD/2-3]) cylinder(d2=100, d1=0, h=50);
+
+        // Screw holes:
+        translate([0,0,(baseRingAboveTubeZ-baseRingCZ)/2]) 
+            for(a=[0, 120, 240]) rotate([0,0,a-90]) rotate([-90,0,0]) 
+            {
+                cylinder(d=screwDia, h=100);
+                cylinder(d=nutDia, h=mastRingOD/2+nutRecess, $fn=6);
+            }
     }
 }
 
@@ -67,8 +81,11 @@ module clip(d=0)
 
 if(developmentRender)
 {
-	display() translate([-80,0,0]) baseRing();
-    display() bottomSleeve();
+	//display() translate([-80,0,0]) baseRing();
+    //display() bottomSleeve();
+
+    display() baseRing();
+    display() translate([-80,0,0]) bottomSleeve();
 }
 else
 {
