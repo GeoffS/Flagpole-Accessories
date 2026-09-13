@@ -41,15 +41,12 @@ module baseRing()
         // Interior:
         tcy([0,0,-200], d=mastRingOD, h=400);
 
-        // Entry chamfer:
-        // translate([0,0,baseRingAboveTubeZ-mastRingOD/2-3]) cylinder(d2=100, d1=0, h=50);
-
         // Screw holes:
         translate([0,0,(baseRingAboveTubeZ-baseRingCZ)/2]) 
             for(a=[0, 120, 240]) rotate([0,0,a-90]) rotate([-90,0,0]) 
             {
                 cylinder(d=screwDia, h=100);
-                cylinder(d=nutDia, h=mastRingOD/2+nutRecess, $fn=6);
+                rotate([0,0,-30]) cylinder(d=nutDia, h=mastRingOD/2+nutRecess, $fn=6);
             }
     }
 }
