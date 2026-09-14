@@ -17,7 +17,7 @@ firstLayerHeight = 0.2;
 layerHeight = 0.2;
 
 baseRingAboveTubeZ = 20;
-baseRingInsideTubeZ = 40;
+baseRingInsideTubeZ = 30;
 baseRingCZ = 3;
 
  // 10-24'ish:
