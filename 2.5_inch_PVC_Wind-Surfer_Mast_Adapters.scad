@@ -21,9 +21,11 @@ baseRingInsideTubeZ = 40;
 baseRingCZ = 3;
 
  // 10-24'ish:
-screwDia = 4.9;
-nutDia = 10.6;
-nutRecess = 3.6;
+screwThreadDia = 5.1;
+screwHeadDia = 9.8;
+screwHeadRecess = 2;
+nutDia = 10.75;
+nutRecess = 3.7;
 
 module baseRing()
 {
@@ -35,7 +37,7 @@ module baseRing()
             // Above tube:
             simpleChamferedCylinder(d=tubeOD, h=baseRingAboveTubeZ, cz=baseRingCZ);
             // Sleave:
-            translate([0,0,-baseRingInsideTubeZ]) simpleChamferedCylinder(d=tubeID, h=baseRingInsideTubeZ, cz=3, flip=true);
+            translate([0,0,-baseRingInsideTubeZ]) simpleChamferedCylinder(d=tubeID, h=baseRingInsideTubeZ, cz=6, flip=true);
         }
 
         // Interior:
@@ -45,7 +47,11 @@ module baseRing()
         translate([0,0,(baseRingAboveTubeZ-baseRingCZ)/2]) 
             for(a=[0, 120, 240]) rotate([0,0,a-90]) rotate([-90,0,0]) 
             {
-                cylinder(d=screwDia, h=100);
+                // Threads hole:
+                cylinder(d=screwThreadDia, h=100);
+                // Pan-head recess:
+                tcy([0,0,tubeOD/2-screwHeadRecess], d=screwHeadDia, h=100);
+                // Nut recess:
                 rotate([0,0,-30]) cylinder(d=nutDia, h=mastRingOD/2+nutRecess, $fn=6);
             }
     }
