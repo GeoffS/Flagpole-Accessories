@@ -10,8 +10,8 @@ topPerimiterWidth = 0.42;
 tubeOD = 90; // Measured
 tubeID = 77; // Measured
 
-mastBaseOD = 54; // Approximate measurement of blue flagpole mast 9/10/2026
-mastRingOD = 51; // Approximate measurement of blue flagpole mast 9/12/2026
+mastBaseOD = 53; // Approximate measurement of blue flagpole mast 9/10/2026
+mastRingOD = 53; // Approximate measurement of blue flagpole mast 9/12/2026
 
 firstLayerHeight = 0.2;
 layerHeight = 0.2;
